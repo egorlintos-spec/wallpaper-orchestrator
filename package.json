@@ -1,7 +1,7 @@
 {
   "name": "wallpaper-orchestrator",
   "version": "0.1.2",
-  "description": "Desktop app that auto-generates minimalist 'liquid glass' iPhone wallpapers via ChatGPT and prepares them for Pinterest — prompt → image → download → pin.",
+  "description": "Desktop app that auto-generates minimalist 'liquid glass' iPhone wallpapers via the Reve AI API and prepares them for Pinterest — prompt → image → pin.",
   "main": "main.js",
   "author": {
     "name": "FallenOWL"
@@ -17,24 +17,23 @@
   "homepage": "https://github.com/egorlintos-spec/wallpaper-orchestrator#readme",
   "keywords": [
     "electron",
-    "playwright",
-    "chatgpt",
-    "automation",
+    "reve",
+    "ai",
+    "image-generation",
     "wallpaper",
     "pinterest",
-    "ai",
-    "image-generation"
+    "automation"
   ],
   "scripts": {
     "start": "electron .",
-    "install-browsers": "playwright install chromium",
     "test:prompt": "node test_prompt.js",
     "test:full": "node test_full.js",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "dist:win": "electron-builder --win",
     "dist:mac": "electron-builder --mac",
-    "dist:linux": "electron-builder --linux"
+    "dist:linux": "electron-builder --linux",
+    "install-browsers": "playwright install chromium"
   },
   "devDependencies": {
     "electron": "^31.0.0",
