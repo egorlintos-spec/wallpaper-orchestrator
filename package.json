@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "description": "Desktop app that auto-generates minimalist 'liquid glass' iPhone wallpapers via ChatGPT and prepares them for Pinterest — prompt → image → download → pin.",
   "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "install-browsers": "playwright install chromium",
-    "test:prompt": "node test_prompt.js",
-    "test:full": "node test_full.js"
+  "author": {
+    "name": "FallenOWL"
   },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egorlintos-spec/wallpaper-orchestrator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/egorlintos-spec/wallpaper-orchestrator/issues"
+  },
+  "homepage": "https://github.com/egorlintos-spec/wallpaper-orchestrator#readme",
   "keywords": [
     "electron",
     "playwright",
@@ -19,20 +25,91 @@
     "ai",
     "image-generation"
   ],
-  "author": "FallenOWL",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/egorlintos-spec/wallpaper-orchestrator.git"
+  "scripts": {
+    "start": "electron .",
+    "install-browsers": "playwright install chromium",
+    "test:prompt": "node test_prompt.js",
+    "test:full": "node test_full.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
   },
-  "bugs": {
-    "url": "https://github.com/egorlintos-spec/wallpaper-orchestrator/issues"
-  },
-  "homepage": "https://github.com/egorlintos-spec/wallpaper-orchestrator#readme",
   "devDependencies": {
-    "electron": "^31.0.0"
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
   },
   "dependencies": {
     "playwright": "^1.45.0"
+  },
+  "build": {
+    "appId": "to.boosty.fallenowl.wallpaperorchestrator",
+    "productName": "Wallpaper Orchestrator",
+    "files": [
+      "main.js",
+      "preload.js",
+      "config.js",
+      "core/**/*",
+      "gui/**/*",
+      "!**/*.map"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.graphics-design",
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Graphics",
+      "icon": "build/icon.png",
+      "maintainer": "FallenOWL"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "egorlintos-spec",
+        "repo": "wallpaper-orchestrator"
+      }
+    ]
   }
 }
