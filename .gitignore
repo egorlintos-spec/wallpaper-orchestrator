@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Generated wallpapers
+output/
+
+# Browser profiles / sessions (NEVER commit — contains your login)
+.chatgpt-profile/
+.SaiChromeProfile/
+.SimularChromeProfile/
+
+# Secrets & local config
+.env
+otp.txt
+
+# Logs & temp
+*.log
+*.out.txt
+*.err.txt
+
+# Dev screenshots
+login-result.png
+chatgpt-state.png
+
+# OS
+.DS_Store
+Thumbs.db
