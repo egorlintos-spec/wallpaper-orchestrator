@@ -98,6 +98,33 @@ npm run test:prompt   # prints a generated prompt + pin metadata
 npm run test:full     # prompt → ChatGPT → download into output/
 ```
 
+## 📥 Downloads
+
+Pre-built installers are produced automatically by GitHub Actions and attached to each [Release](https://github.com/egorlintos-spec/wallpaper-orchestrator/releases):
+
+| OS | File |
+|----|------|
+| 🪟 Windows | `Wallpaper-Orchestrator-Setup-x.y.z.exe` (installer) / `...portable.exe` |
+| 🍎 macOS | `Wallpaper-Orchestrator-x.y.z.dmg` (Intel + Apple Silicon) |
+| 🐧 Linux | `Wallpaper-Orchestrator-x.y.z.AppImage` / `.deb` |
+
+### Build it yourself
+
+```bash
+npm install
+npm run dist:win     # or dist:mac / dist:linux
+# output goes to ./release
+```
+
+To cut a release that auto-builds all platforms, push a tag:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The `Build installers` workflow then builds Windows/macOS/Linux and publishes the installers to a GitHub Release.
+
 ## ⚙️ Configuration
 
 All settings live in [`config.js`](config.js) and can be overridden via `.env` (see [`.env.example`](.env.example)):
