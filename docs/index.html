@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privacy Policy — Wallpaper Orchestrator</title>
+<style>
+  body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#1a1a1a;line-height:1.65;}
+  h1{font-size:26px;} h2{font-size:18px;margin-top:28px;} code{background:#f3f3f3;padding:2px 5px;border-radius:4px;}
+  .muted{color:#666;font-size:13px;} a{color:#0067c0;}
+</style></head><body>
+<h1>Privacy Policy</h1>
+<p class="muted">Application: <b>Wallpaper personal content</b> (App ID 1585101) · Company: <b>FallenOWL</b> · Last updated: 2026-06-27</p>
+
+<p><b>Wallpaper Orchestrator</b> is a personal desktop application that publishes the
+owner's own original wallpaper and design images to the owner's own Pinterest
+business account, and retrieves analytics (impressions, saves, clicks) for those pins.
+It is a single-user personal tool and is <b>not</b> offered to or used by third-party users.</p>
+
+<h2>1. Data we access</h2>
+<p>Through the Pinterest API, the application accesses only the account of the
+authenticated owner, specifically:</p>
+<ul>
+  <li>Boards and pins owned by the account (to create new pins).</li>
+  <li>Pin and account analytics (impressions, saves, link clicks) for reporting.</li>
+</ul>
+
+<h2>2. Data we store</h2>
+<p>The application runs locally on the owner's computer. It stores only:</p>
+<ul>
+  <li>API access/refresh tokens, kept locally in a <code>.env</code> file on the owner's machine.</li>
+  <li>A local ledger of which images have been posted (<code>posted.json</code>).</li>
+  <li>Optional locally generated analytics reports (CSV/HTML).</li>
+</ul>
+<p>No data is sent to any third-party server controlled by us. We do not operate
+any backend; all processing happens on the owner's device.</p>
+
+<h2>3. Data we do NOT collect</h2>
+<p>We do not collect, sell, or share any personal data of other Pinterest users.
+The application only interacts with the owner's own account.</p>
+
+<h2>4. Data sharing</h2>
+<p>No data is shared with third parties. Communication occurs solely between the
+owner's device and the official Pinterest API.</p>
+
+<h2>5. Data retention &amp; deletion</h2>
+<p>All data is local. The owner may delete tokens, the ledger, and reports at any
+time by removing the corresponding files, or by revoking the app's access in their
+Pinterest account settings.</p>
+
+<h2>6. Security</h2>
+<p>Tokens are stored locally and never transmitted except to Pinterest over HTTPS.</p>
+
+<h2>7. Contact</h2>
+<p>For questions about this policy, contact the developer via the project repository:
+<a href="https://github.com/egorlintos-spec/wallpaper-orchestrator">github.com/egorlintos-spec/wallpaper-orchestrator</a>.</p>
+
+<p class="muted">This application uses the Pinterest API but is not endorsed or certified by Pinterest.</p>
+</body></html>
