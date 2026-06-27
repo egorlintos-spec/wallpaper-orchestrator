@@ -1,0 +1,38 @@
+{
+  "name": "wallpaper-orchestrator",
+  "version": "0.1.0",
+  "description": "Desktop app that auto-generates minimalist 'liquid glass' iPhone wallpapers via ChatGPT and prepares them for Pinterest — prompt → image → download → pin.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "install-browsers": "playwright install chromium",
+    "test:prompt": "node test_prompt.js",
+    "test:full": "node test_full.js"
+  },
+  "keywords": [
+    "electron",
+    "playwright",
+    "chatgpt",
+    "automation",
+    "wallpaper",
+    "pinterest",
+    "ai",
+    "image-generation"
+  ],
+  "author": "FallenOWL",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/egorlintos-spec/wallpaper-orchestrator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/egorlintos-spec/wallpaper-orchestrator/issues"
+  },
+  "homepage": "https://github.com/egorlintos-spec/wallpaper-orchestrator#readme",
+  "devDependencies": {
+    "electron": "^31.0.0"
+  },
+  "dependencies": {
+    "playwright": "^1.45.0"
+  }
+}
