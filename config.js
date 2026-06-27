@@ -12,8 +12,11 @@ module.exports = {
   // Where downloaded images are saved (writable!)
   outputDir: path.join(HOME, 'output'),
 
-  // ChatGPT image generation page
-  chatgptUrl: 'https://chatgpt.com/',
+  // --- Reve AI image API ---
+  reveEndpoint: process.env.REVE_ENDPOINT || 'https://api.reve.com/v1/image/create',
+  reveApiKey: process.env.REVE_API_KEY || '',
+  reveVersion: process.env.REVE_VERSION || 'latest',
+  aspectRatio: process.env.WO_ASPECT || '9:16', // iPhone wallpaper
 
   // Link inserted into every Pinterest pin (your monetization page)
   pinterestLink: 'boosty.to/fallenowl',
@@ -24,14 +27,4 @@ module.exports = {
   // Pacing to avoid Pinterest spam protection (ms between pins)
   pinDelayMs: 90000,
 
-  // --- CDP attach mode: reuse an already logged-in Chrome ---
-  cdpUrl: process.env.CDP_URL || 'http://localhost:9222',
-  cdpPort: Number(process.env.CDP_PORT) || 9222,
-  chromeExe: process.env.CHROME_EXE ||
-    'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  chromeProfileDir: process.env.CHROME_PROFILE_DIR ||
-    path.join(process.env.LOCALAPPDATA || HOME, '.SaiChromeProfile'),
-
-  // Playwright user-data dir for Pinterest (writable!)
-  chatgptUserDataDir: path.join(HOME, '.chatgpt-profile'),
 };
