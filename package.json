@@ -1,6 +1,6 @@
 {
   "name": "wallpaper-orchestrator",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "Desktop app that organizes local image collections into category folders, hosts them on GitHub, and builds a Pinterest bulk-upload CSV with tags and links.",
   "main": "main.js",
   "author": {
@@ -37,7 +37,8 @@
     "electron-builder": "^24.13.3"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "sharp": "^0.33.5"
   },
   "build": {
     "appId": "to.boosty.fallenowl.wallpaperorchestrator",
@@ -49,6 +50,7 @@
       "core/github_client.js",
       "core/csv_builder.js",
       "core/pack_manager.js",
+      "core/image_optimizer.js",
       "gui/**/*",
       "!**/*.map"
     ],
@@ -114,6 +116,10 @@
     ],
     "portable": {
       "artifactName": "Wallpaper-Orchestrator-${version}-Windows-Portable-${arch}.${ext}"
-    }
+    },
+    "asarUnpack": [
+      "**/node_modules/sharp/**",
+      "**/node_modules/@img/**"
+    ]
   }
 }
