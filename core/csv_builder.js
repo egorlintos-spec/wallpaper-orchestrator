@@ -41,6 +41,6 @@ function build(items) {
     const keywords = tags.map(t => t.replace(/^#/, '')).join(', ');
     rows.push([title, it.rawUrl, it.category, '', description, config.pinterestLink, '', keywords]);
   }
-  return rows.map(r => r.map(cell).join(',')).join('\n') + '\n';
+  return rows.map(r => r.map(cell).join(',')).join('\r\n') + '\r\n';
 }
 module.exports = { build, titleFromFile };
