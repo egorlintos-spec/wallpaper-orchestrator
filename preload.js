@@ -1,6 +1,10 @@
-// preload.js — secure bridge
+// preload.js — secure IPC bridge
 const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('api', {
-  runOnce: (opts) => ipcRenderer.invoke('run-once', opts),
-  onStatus: (cb) => ipcRenderer.on('status', (_e, line) => cb(line)),
+  startWatch: () => ipcRenderer.invoke('watch:start'),
+  stopWatch:  () => ipcRenderer.invoke('watch:stop'),
+  scan:       () => ipcRenderer.invoke('watch:scan'),
+  openFolder: () => ipcRenderer.invoke('open:watchRoot'),
+  getConfig:  () => ipcRenderer.invoke('get:config'),
+  onStatus:   (cb) => ipcRenderer.on('status', (_e, msg) => cb(msg)),
 });
