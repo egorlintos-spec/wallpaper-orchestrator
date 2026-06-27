@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" /><title>Wallpaper Orchestrator</title>
+<style>
+body{font-family:-apple-system,Segoe UI,sans-serif;background:#15151b;color:#e8e8ee;margin:0;padding:20px;}
+h1{font-size:18px;margin:0 0 4px;}
+.sub{color:#9a9aa8;font-size:12px;margin-bottom:16px;}
+.row{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+button{background:#6c5ce7;color:#fff;border:0;padding:10px 16px;border-radius:8px;font-size:14px;cursor:pointer;}
+button:disabled{opacity:.5;cursor:default;}
+label{font-size:13px;color:#c8c8d4;}
+#log{background:#0e0e13;border:1px solid #26262f;border-radius:8px;padding:12px;height:380px;overflow:auto;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap;}
+.pill{font-size:11px;background:#26263a;padding:3px 8px;border-radius:20px;color:#b9b9ff;}
+</style></head><body>
+<h1>🦉 Wallpaper Orchestrator</h1>
+<div class="sub">Prompt &rarr; ChatGPT image &rarr; download &rarr; Pinterest pin</div>
+<div class="row">
+<button id="testBtn">▶ Test run (stages 1-4)</button>
+<button id="fullBtn">🚀 Full run (+ Pinterest)</button>
+<span class="pill" id="state">idle</span>
+</div>
+<div id="log"></div>
+<script src="renderer.js"></script>
+</body></html>
