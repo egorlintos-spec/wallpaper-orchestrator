@@ -1,57 +1,90 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Privacy Policy — Wallpaper Orchestrator</title>
+<html lang="en"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fallen the Owl — Wallpaper Orchestrator</title>
+<meta name="description" content="Wallpaper Orchestrator by Fallen the Owl — a desktop tool that organizes curated wallpaper collections and prepares them for publishing to Pinterest." />
 <style>
-  body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#1a1a1a;line-height:1.65;}
-  h1{font-size:26px;} h2{font-size:18px;margin-top:28px;} code{background:#f3f3f3;padding:2px 5px;border-radius:4px;}
-  .muted{color:#666;font-size:13px;} a{color:#0067c0;}
-</style></head><body>
-<h1>Privacy Policy</h1>
-<p class="muted">Application: <b>Wallpaper personal content</b> (App ID 1585101) · Company: <b>FallenOWL</b> · Last updated: 2026-06-27</p>
+  :root{--bg:#0d0f14;--card:#161a22;--line:#222836;--txt:#eef2f8;--sub:#9aa6bb;--acc:#7ad6ff;--acc2:#a99bff}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif}
+  body{background:var(--bg);color:var(--txt);line-height:1.6}
+  a{color:var(--acc);text-decoration:none}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  header{padding:22px 0;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(13,15,20,.85);backdrop-filter:blur(10px);z-index:10}
+  header .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+  .logo span{font-size:22px}
+  nav a{margin-left:22px;color:var(--sub);font-size:14px}
+  nav a:hover{color:var(--txt)}
+  .hero{padding:90px 0 70px;text-align:center;background:radial-gradient(1200px 400px at 50% -100px,rgba(122,214,255,.12),transparent)}
+  .hero h1{font-size:46px;font-weight:800;letter-spacing:-1px;background:linear-gradient(120deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{font-size:19px;color:var(--sub);max-width:640px;margin:18px auto 0}
+  .btns{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:13px 26px;border-radius:10px;font-weight:600;font-size:15px}
+  .btn.primary{background:var(--acc);color:#002}
+  .btn.ghost{border:1px solid var(--line);color:var(--txt)}
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  h2{font-size:28px;margin-bottom:14px}
+  .lead{color:var(--sub);max-width:680px;margin-bottom:34px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px}
+  .card .ico{font-size:28px;margin-bottom:12px}
+  .card h3{font-size:17px;margin-bottom:8px}
+  .card p{color:var(--sub);font-size:14px}
+  .steps{counter-reset:s;display:flex;flex-direction:column;gap:16px;max-width:720px}
+  .step{display:flex;gap:18px;align-items:flex-start}
+  .step .n{counter-increment:s;flex:0 0 38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--acc)}
+  .step .n::before{content:counter(s)}
+  .step h4{font-size:16px}.step p{color:var(--sub);font-size:14px}
+  footer{padding:40px 0;border-top:1px solid var(--line);color:var(--sub);font-size:14px;text-align:center}
+  footer a{margin:0 10px}
+</style></head>
+<body>
+<header><div class="wrap">
+  <div class="logo"><span>🦉</span> Fallen the Owl</div>
+  <nav><a href="#features">Features</a><a href="#how">How it works</a><a href="/privacy.html">Privacy</a><a href="#contact">Contact</a></nav>
+</div></header>
 
-<p><b>Wallpaper Orchestrator</b> is a personal desktop application that publishes the
-owner's own original wallpaper and design images to the owner's own Pinterest
-business account, and retrieves analytics (impressions, saves, clicks) for those pins.
-It is a single-user personal tool and is <b>not</b> offered to or used by third-party users.</p>
+<div class="hero"><div class="wrap">
+  <h1>Wallpaper Orchestrator</h1>
+  <p>A desktop tool that organizes curated wallpaper collections, hosts them, and prepares them for publishing to Pinterest — fast, clean, and consistent.</p>
+  <div class="btns">
+    <a class="btn primary" href="#how">See how it works</a>
+    <a class="btn ghost" href="https://github.com/egorlintos-spec/wallpaper-orchestrator" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</div></div>
 
-<h2>1. Data we access</h2>
-<p>Through the Pinterest API, the application accesses only the account of the
-authenticated owner, specifically:</p>
-<ul>
-  <li>Boards and pins owned by the account (to create new pins).</li>
-  <li>Pin and account analytics (impressions, saves, link clicks) for reporting.</li>
-</ul>
+<section id="features"><div class="wrap">
+  <h2>What it does</h2>
+  <p class="lead">Wallpaper Orchestrator streamlines the workflow of preparing and publishing high-quality wallpaper collections to Pinterest.</p>
+  <div class="grid">
+    <div class="card"><div class="ico">🗂️</div><h3>Organize by category</h3><p>Sort your wallpapers into folders — Ads, Magazine, Posters, Art and more. Each folder becomes a Pinterest board.</p></div>
+    <div class="card"><div class="ico">🏷️</div><h3>Smart descriptions</h3><p>Automatically generates titles, descriptions and relevant hashtags for every image.</p></div>
+    <div class="card"><div class="ico">🔗</div><h3>Hosted media</h3><p>Images are hosted and turned into public links ready for Pinterest's bulk publishing.</p></div>
+    <div class="card"><div class="ico">📊</div><h3>Bulk-ready export</h3><p>Produces a ready-to-import CSV so you can publish dozens of pins at once.</p></div>
+  </div>
+</div></section>
 
-<h2>2. Data we store</h2>
-<p>The application runs locally on the owner's computer. It stores only:</p>
-<ul>
-  <li>API access/refresh tokens, kept locally in a <code>.env</code> file on the owner's machine.</li>
-  <li>A local ledger of which images have been posted (<code>posted.json</code>).</li>
-  <li>Optional locally generated analytics reports (CSV/HTML).</li>
-</ul>
-<p>No data is sent to any third-party server controlled by us. We do not operate
-any backend; all processing happens on the owner's device.</p>
+<section id="how"><div class="wrap">
+  <h2>How it works</h2>
+  <p class="lead">Four simple steps from a folder of images to published pins.</p>
+  <div class="steps">
+    <div class="step"><div class="n"></div><div><h4>Collect your images</h4><p>Drop your wallpapers into category folders on your computer.</p></div></div>
+    <div class="step"><div class="n"></div><div><h4>Build a pack</h4><p>The app uploads the images, collects their public links, and generates a Pinterest-ready CSV with titles, descriptions and tags.</p></div></div>
+    <div class="step"><div class="n"></div><div><h4>Publish to Pinterest</h4><p>Import the CSV into Pinterest's bulk create tool — all pins are created on the right boards.</p></div></div>
+    <div class="step"><div class="n"></div><div><h4>Clean up</h4><p>Once published, remove the temporary hosted copies in one click.</p></div></div>
+  </div>
+</div></section>
 
-<h2>3. Data we do NOT collect</h2>
-<p>We do not collect, sell, or share any personal data of other Pinterest users.
-The application only interacts with the owner's own account.</p>
+<section id="contact"><div class="wrap">
+  <h2>Contact</h2>
+  <p class="lead">Questions about Wallpaper Orchestrator? Get in touch.</p>
+  <p>Email: <a href="mailto:lotr1k@outlook.com">lotr1k@outlook.com</a></p>
+  <p>Project: <a href="https://github.com/egorlintos-spec/wallpaper-orchestrator" target="_blank" rel="noopener">github.com/egorlintos-spec/wallpaper-orchestrator</a></p>
+</div></section>
 
-<h2>4. Data sharing</h2>
-<p>No data is shared with third parties. Communication occurs solely between the
-owner's device and the official Pinterest API.</p>
-
-<h2>5. Data retention &amp; deletion</h2>
-<p>All data is local. The owner may delete tokens, the ledger, and reports at any
-time by removing the corresponding files, or by revoking the app's access in their
-Pinterest account settings.</p>
-
-<h2>6. Security</h2>
-<p>Tokens are stored locally and never transmitted except to Pinterest over HTTPS.</p>
-
-<h2>7. Contact</h2>
-<p>For questions about this policy, contact the developer via the project repository:
-<a href="https://github.com/egorlintos-spec/wallpaper-orchestrator">github.com/egorlintos-spec/wallpaper-orchestrator</a>.</p>
-
-<p class="muted">This application uses the Pinterest API but is not endorsed or certified by Pinterest.</p>
+<footer><div class="wrap">
+  <div>© 2025 Fallen the Owl · Wallpaper Orchestrator</div>
+  <div style="margin-top:10px"><a href="/">Home</a><a href="/privacy.html">Privacy Policy</a><a href="mailto:lotr1k@outlook.com">Contact</a></div>
+</div></footer>
 </body></html>
