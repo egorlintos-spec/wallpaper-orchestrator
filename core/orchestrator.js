@@ -1,26 +1,24 @@
 // core/orchestrator.js
-// Ties everything together: prompt -> ChatGPT image -> download -> Pinterest pin.
+// Pipeline: prompt -> Reve image -> (optional) Pinterest pin.
 const promptEngine = require('./prompt_engine');
-const chatgpt = require('./chatgpt_driver');
+const reve = require('./reve_driver');
 const pinterest = require('./pinterest_driver');
 const config = require('../config');
 
 function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40); }
 
-// Run a single pin pipeline. uploadToPinterest=false lets us TEST stages 1-4 only.
+// Run a single pin pipeline. uploadToPinterest=false lets us TEST stages 1-3 only.
 async function runOnce({ customModelFn = null, uploadToPinterest = false } = {}, onStatus = () => {}) {
   // 1. prompt + meta
   const { prompt, object, background, meta } = await promptEngine.generate(customModelFn);
   onStatus('Prompt: ' + prompt);
 
-  // 2-3. generate + download via ChatGPT
-  await chatgpt.launch();
-  if (!(await chatgpt.isLoggedIn())) await chatgpt.waitForLogin(onStatus);
-  await chatgpt.sendPrompt(prompt, onStatus);
+  // 2-3. generate + save via Reve API (no browser, no login)
   const fileName = 'wp-' + slug(object) + '-' + Date.now() + '.png';
-  const imagePath = await chatgpt.downloadImage(fileName, onStatus);
+  const result = await reve.generate(prompt, fileName, onStatus);
+  const imagePath = result.path;
 
-  // 4. meta already built
+  // 4. meta
   onStatus('Title: ' + meta.title);
   onStatus('Description: ' + meta.description);
   onStatus('Alt: ' + meta.alt);
@@ -37,8 +35,7 @@ async function runOnce({ customModelFn = null, uploadToPinterest = false } = {},
     onStatus('uploadToPinterest=false → skipping pin upload (test mode).');
   }
 
-  await chatgpt.close();
-  return { prompt, imagePath, meta };
+  return { prompt, imagePath, meta, creditsRemaining: result.creditsRemaining };
 }
 
 module.exports = { runOnce };
