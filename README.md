@@ -1,12 +1,12 @@
 <h1 align="center">🪟 Wallpaper Orchestrator</h1>
 
 <p align="center">
-  <em>Auto-generate minimalist <b>"liquid glass"</b> iPhone wallpapers with ChatGPT — and prepare them for Pinterest, end to end.</em>
+  <em>Auto-generate minimalist <b>"liquid glass"</b> iPhone wallpapers with the <b>Reve AI API</b> — and prepare them for Pinterest, end to end.</em>
 </p>
 
 <p align="center">
   <img alt="Electron" src="https://img.shields.io/badge/Electron-31-47848F?logo=electron&logoColor=white">
-  <img alt="Playwright" src="https://img.shields.io/badge/Playwright-1.45-2EAD33?logo=playwright&logoColor=white">
+  <img alt="Reve AI" src="https://img.shields.io/badge/Reve%20AI-image%20API-black">
   <img alt="Node" src="https://img.shields.io/badge/Node-18%2B-339933?logo=node.js&logoColor=white">
   <img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg">
   <img alt="Platform" src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white">
@@ -20,19 +20,21 @@ Wallpaper Orchestrator is a desktop app that runs a full content pipeline automa
 
 ```
   ┌──────────┐   ┌───────────────┐   ┌───────────┐   ┌────────────────────┐
-  │  Prompt  │ → │ ChatGPT image │ → │  Download │ → │ Pinterest pin +    │
-  │  engine  │   │  generation   │   │   to disk │   │ boosty.to link     │
+  │  Prompt  │ → │   Reve AI     │ → │  Save to  │ → │ Pinterest pin +    │
+  │  engine  │   │  image API    │   │   disk    │   │ boosty.to link     │
   └──────────┘   └───────────────┘   └───────────┘   └────────────────────┘
 ```
 
 It produces signature wallpapers — a single translucent glass object (feather, hourglass, compass, crystal…) on a muted neutral background — and pins them with a description + your monetization link.
+
+**No browser automation for image generation. No login, no captcha, no Cloudflare** — just one authenticated REST call to Reve.
 
 ## 📋 Table of Contents
 
 - [Features](#-features)
 - [Requirements](#-requirements)
 - [Installation](#-installation)
-- [ChatGPT login (one-time)](#-chatgpt-login-one-time)
+- [API key setup](#-api-key-setup)
 - [Usage](#-usage)
 - [Configuration](#-configuration)
 - [Architecture](#-architecture)
@@ -44,18 +46,20 @@ It produces signature wallpapers — a single translucent glass object (feather,
 ## 🚀 Features
 
 - 🎨 **Curated prompt engine** — 20+ hand-authored premium prompt pairs in a consistent aesthetic, plus a random generator and a pluggable hook for any LLM.
-- 🤖 **ChatGPT automation** via Playwright — no API key needed for images.
-- 🔐 **Sessionless login** — attaches to an already logged-in Chrome over CDP, so **no password or 2FA is stored** by the app.
-- 💾 **Auto-download** of generated images to `output/`.
+- 🤖 **Reve AI image generation** via a single REST call — fast, reliable, no browser.
+- 🔑 **Just an API key** — no password, no 2FA, no session juggling. Key lives in `.env`.
+- 📱 **9:16 by default** — sized for iPhone wallpapers (configurable aspect ratio).
+- 💾 **Auto-save** of generated images to `output/`.
 - 📌 **Pinterest-ready metadata** — every image gets a title, description and your `boosty.to/fallenowl` link.
 - 🛡️ **Anti-spam pacing** — configurable delay between pins (default 90s).
-- 🖥️ **Electron GUI** with "Test run" (stages 1–4) and "Full run" (+Pinterest).
+- 🖥️ **Electron GUI** with "Test run" (prompt → image) and "Full run" (+Pinterest).
 
 ## 🧩 Requirements
 
 - Windows 10/11
 - [Node.js](https://nodejs.org) 18+
-- Google Chrome
+- A **Reve AI API key** with available budget
+- Google Chrome *(only for the optional Pinterest upload step)*
 
 ## 📦 Installation
 
@@ -63,67 +67,49 @@ It produces signature wallpapers — a single translucent glass object (feather,
 git clone https://github.com/egorlintos-spec/wallpaper-orchestrator.git
 cd wallpaper-orchestrator
 npm install
-npm run install-browsers   # downloads Playwright Chromium
+npm run install-browsers   # Playwright Chromium — only needed for Pinterest upload
 npm start
 ```
 
-## 🔐 ChatGPT login (one-time)
+## 🔑 API key setup
 
-The app never stores your password. Instead it reuses a live ChatGPT session
-from a Chrome instance started with remote debugging:
+1. Copy `.env.example` to `.env`.
+2. Paste your Reve API key:
 
-```powershell
-& "C:\Program Files\Google\Chrome\Application\chrome.exe" `
-  --remote-debugging-port=9222 `
-  --user-data-dir="$env:LOCALAPPDATA\.SaiChromeProfile"
-```
+   ```env
+   REVE_API_KEY=papi.xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxx
+   ```
 
-1. In that Chrome window, sign in once at <https://chatgpt.com>.
-2. Leave it running. The app connects to it automatically.
+3. Make sure your Reve **API Budget** has funds (the app reports remaining credits after each generation).
 
-> If Chrome isn't running, the driver will launch it with the right flags for you.
+> 🔒 `.env` is git-ignored. Never commit your real key. If a key ever leaks, rotate it in the Reve dashboard.
 
 ## ▶️ Usage
 
-**GUI**
-
 ```bash
 npm start
 ```
 
-**Headless test (no GUI)**
-
-```bash
-npm run test:prompt   # prints a generated prompt + pin metadata
-npm run test:full     # prompt → ChatGPT → download into output/
-```
+- **Test run** — prompt → Reve image → saved to `output/` (no Pinterest).
+- **Full run** — same, then uploads the pin to Pinterest with your Boosty link.
 
 ## 📥 Downloads
 
-Pre-built installers are produced automatically by GitHub Actions and attached to each [Release](https://github.com/egorlintos-spec/wallpaper-orchestrator/releases):
-
-| OS | File |
-|----|------|
-| 🪟 Windows | `Wallpaper-Orchestrator-Setup-x.y.z.exe` (installer) / `...portable.exe` |
-| 🍎 macOS | `Wallpaper-Orchestrator-x.y.z.dmg` (Intel + Apple Silicon) |
-| 🐧 Linux | `Wallpaper-Orchestrator-x.y.z.AppImage` / `.deb` |
+Pre-built installers are produced automatically by GitHub Actions and attached to each [Release](https://github.com/egorlintos-spec/wallpaper-orchestrator/releases).
 
 ### Build it yourself
 
 ```bash
 npm install
 npm run dist:win     # or dist:mac / dist:linux
-# output goes to ./release
 ```
 
 To cut a release that auto-builds all platforms, push a tag:
 
 ```bash
-git tag v0.1.0
-git push origin v0.1.0
+git tag v0.2.0
+git push origin v0.2.0
 ```
-
-The `Build installers` workflow then builds Windows/macOS/Linux and publishes the installers to a GitHub Release.
 
 ## ⚙️ Configuration
 
@@ -131,12 +117,13 @@ All settings live in [`config.js`](config.js) and can be overridden via `.env` (
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `outputDir` | `./output` | Where wallpapers are saved |
+| `reveApiKey` | *(from .env)* | Your Reve API key |
+| `reveEndpoint` | `https://api.reve.com/v1/image/create` | Reve create endpoint |
+| `reveVersion` | `latest` | Model version |
+| `aspectRatio` | `9:16` | Image aspect ratio (iPhone wallpaper) |
+| `outputDir` | `~/WallpaperOrchestrator/output` | Where wallpapers are saved |
 | `pinterestLink` | `boosty.to/fallenowl` | Link added to every pin |
 | `pinDelayMs` | `90000` | Delay between pins (anti-spam) |
-| `cdpUrl` / `cdpPort` | `http://localhost:9222` | Chrome remote-debugging endpoint |
-| `chromeExe` | Chrome default path | Path to Chrome executable |
-| `chromeProfileDir` | `%LOCALAPPDATA%\.SaiChromeProfile` | Chrome profile holding your session |
 
 ## 🏗️ Architecture
 
@@ -150,8 +137,8 @@ wallpaper-orchestrator/
 │   └── renderer.js         # UI logic
 └── core/
     ├── prompt_engine.js    # Prompt generation (template + curated + hook)
-    ├── chatgpt_driver.js   # ChatGPT automation over CDP/Playwright
-    ├── pinterest_driver.js # Pinterest pin upload
+    ├── reve_driver.js      # Reve AI image API (REST)
+    ├── pinterest_driver.js # Pinterest pin upload (Playwright)
     └── orchestrator.js     # Ties the stages together
 ```
 
@@ -161,21 +148,7 @@ The prompt engine supports three modes (see `core/prompt_engine.js`):
 
 1. **Curated** (default) — a hand-authored bank of premium object×background×lighting combos.
 2. **Random** — random pick from object/background lists.
-3. **Custom model** — pass an `async` function to `generate()` to plug in any LLM (OpenAI API, Ollama, or ChatGPT itself).
-
-```js
-const pe = require('./core/prompt_engine');
-
-// curated (default)
-const p = await pe.generate();
-
-// plug your own model
-const p2 = await pe.generate(async ({ composePrompt }) => {
-  const object = 'a glass paper plane';
-  const background = 'warm cream beige';
-  return { prompt: composePrompt(object, background, 'soft side light'), object, background };
-});
-```
+3. **Custom model** — pass an `async` function to `generate()` to plug in any LLM.
 
 Pin metadata (title, description, alt text, monetization link) is always attached automatically.
 
@@ -184,13 +157,13 @@ Pin metadata (title, description, alt text, monetization link) is always attache
 - [ ] Batch generation (N wallpapers per run)
 - [ ] Scheduler (5–10 pins/day to respect Pinterest limits)
 - [ ] Optional LLM-driven prompt variety
-- [ ] Cross-platform (macOS/Linux) Chrome paths
+- [ ] Post-processing presets (Reve postprocessors)
 
 ## ⚠️ Disclaimer
 
-This project automates your own logged-in sessions for personal content workflows.
-Respect the Terms of Service of ChatGPT/OpenAI and Pinterest, and any applicable
-rate limits. Use responsibly.
+This project uses the Reve AI API for image generation and automates your own
+Pinterest workflow. Respect the Terms of Service of Reve and Pinterest, and any
+applicable rate limits. Use responsibly.
 
 ## 📄 License
 
