@@ -46,7 +46,9 @@
       "main.js",
       "preload.js",
       "config.js",
-      "core/**/*",
+      "core/github_client.js",
+      "core/csv_builder.js",
+      "core/pack_manager.js",
       "gui/**/*",
       "!**/*.map"
     ],
