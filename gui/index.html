@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" /><title>Wallpaper Orchestrator</title>
+<html lang="en"><head><meta charset="UTF-8" />
+<title>Wallpaper Orchestrator</title>
 <style>
-body{font-family:-apple-system,Segoe UI,sans-serif;background:#15151b;color:#e8e8ee;margin:0;padding:20px;}
-h1{font-size:18px;margin:0 0 4px;}
-.sub{color:#9a9aa8;font-size:12px;margin-bottom:16px;}
-.row{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
-button{background:#6c5ce7;color:#fff;border:0;padding:10px 16px;border-radius:8px;font-size:14px;cursor:pointer;}
-button:disabled{opacity:.5;cursor:default;}
-label{font-size:13px;color:#c8c8d4;}
-#log{background:#0e0e13;border:1px solid #26262f;border-radius:8px;padding:12px;height:380px;overflow:auto;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap;}
-.pill{font-size:11px;background:#26263a;padding:3px 8px;border-radius:20px;color:#b9b9ff;}
-</style></head><body>
-<h1>🦉 Wallpaper Orchestrator</h1>
-<div class="sub">Prompt &rarr; ChatGPT image &rarr; download &rarr; Pinterest pin</div>
-<div class="row">
-<button id="testBtn">▶ Test run (stages 1-4)</button>
-<button id="fullBtn">🚀 Full run (+ Pinterest)</button>
-<span class="pill" id="state">idle</span>
-</div>
-<div id="log"></div>
-<script src="renderer.js"></script>
+  body { font-family: -apple-system, Segoe UI, sans-serif; margin: 0; background:#0f1115; color:#e6e6e6; }
+  header { padding:18px 22px; border-bottom:1px solid #232733; }
+  h1 { font-size:18px; margin:0; }
+  .sub { color:#8a92a6; font-size:12px; margin-top:4px; }
+  .bar { display:flex; gap:10px; align-items:center; padding:16px 22px; flex-wrap:wrap; }
+  button { background:#2b6cff; color:#fff; border:0; padding:10px 16px; border-radius:8px; font-size:14px; cursor:pointer; }
+  button.secondary { background:#272c38; }
+  button:disabled { opacity:.5; cursor:default; }
+  .pill { padding:4px 10px; border-radius:999px; background:#272c38; font-size:12px; color:#9aa3b8; }
+  .pill.on { background:#10331c; color:#5bd98a; }
+  #info { padding:0 22px; color:#8a92a6; font-size:12px; }
+  #log { margin:14px 22px; background:#0a0c10; border:1px solid #1e222c; border-radius:8px; padding:12px; height:340px; overflow:auto; font-family:ui-monospace,Consolas,monospace; font-size:12px; white-space:pre-wrap; }
+</style></head>
+<body>
+  <header>
+    <h1>🪟 Wallpaper Orchestrator</h1>
+    <div class="sub">Drop images into category folders → auto-post to Pinterest with tags + Boosty link.</div>
+  </header>
+  <div id="info">Watching: <span id="root">…</span> · Mode: <span id="mode">…</span></div>
+  <div class="bar">
+    <button id="startBtn">▶️ Start watching</button>
+    <button id="stopBtn" class="secondary" disabled>⏹️ Stop</button>
+    <button id="scanBtn" class="secondary">🔍 Scan now</button>
+    <button id="openBtn" class="secondary">📂 Open folder</button>
+    <span class="pill" id="state">idle</span>
+  </div>
+  <div id="log"></div>
+  <script src="renderer.js"></script>
 </body></html>
