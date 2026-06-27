@@ -1,130 +1,61 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" />
+<html lang="ru"><head><meta charset="UTF-8" />
 <title>Wallpaper Orchestrator</title>
 <style>
-  :root {
-    --accent: #0067c0;
-    --accent-hover: #1975c5;
-    --accent-press: #2d7dca;
-    --bg: #f3f3f3;
-    --layer: rgba(255,255,255,0.7);
-    --layer-solid: #fbfbfb;
-    --stroke: rgba(0,0,0,0.06);
-    --stroke-strong: rgba(0,0,0,0.10);
-    --text: #1a1a1a;
-    --text-2: #5d5d5d;
-    --radius: 8px;
-    --shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #202020; --layer: rgba(255,255,255,0.05); --layer-solid: #2b2b2b;
-      --stroke: rgba(255,255,255,0.07); --stroke-strong: rgba(255,255,255,0.10);
-      --text: #ffffff; --text-2: #c8c8c8; --accent:#60cdff; --accent-hover:#76d3ff; --accent-press:#509ec2;
-      --shadow: 0 2px 12px rgba(0,0,0,0.4);
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin:0; color:var(--text); font-size:14px;
-    font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
-    background:
-      radial-gradient(1200px 600px at 100% -10%, rgba(0,103,192,0.10), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, rgba(120,80,200,0.10), transparent 60%),
-      var(--bg);
-    min-height:100vh;
-  }
-  .titlebar { height:40px; display:flex; align-items:center; padding:0 18px; gap:10px;
-    -webkit-app-region: drag; user-select:none; }
-  .titlebar .dot { width:18px;height:18px;border-radius:6px;
-    background:linear-gradient(135deg,var(--accent),#7a5cc8); }
-  .titlebar h1 { font-size:13px; font-weight:600; margin:0; letter-spacing:.2px; }
-  .wrap { padding: 6px 20px 22px; max-width: 860px; margin:0 auto; }
-
-  .hero { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-  .hero .glyph { width:48px;height:48px;border-radius:12px; display:grid;place-items:center;
-    font-size:24px; background:linear-gradient(135deg,var(--accent),#7a5cc8); color:#fff;
-    box-shadow:var(--shadow); }
-  .hero h2 { margin:0; font-size:20px; font-weight:600;
-    font-family:"Segoe UI Variable Display","Segoe UI",sans-serif; }
-  .hero p { margin:2px 0 0; color:var(--text-2); font-size:12.5px; }
-
-  .card { background:var(--layer-solid); border:1px solid var(--stroke);
-    border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 18px; margin-bottom:14px; }
-  .card.glass { background:var(--layer); backdrop-filter: blur(30px) saturate(140%);
-    -webkit-backdrop-filter: blur(30px) saturate(140%); }
-
-  .meta { display:flex; gap:26px; flex-wrap:wrap; }
-  .meta .k { color:var(--text-2); font-size:11.5px; text-transform:uppercase; letter-spacing:.6px; }
-  .meta .v { font-size:14px; font-weight:600; margin-top:2px; }
-
-  .bar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-  button { font-family:inherit; font-size:14px; cursor:pointer; border-radius:var(--radius);
-    padding:9px 18px; border:1px solid var(--stroke-strong); transition: all .12s ease;
-    background:var(--layer-solid); color:var(--text); }
-  button:hover { background:rgba(0,0,0,0.03); }
-  button:active { transform: translateY(1px); }
-  button.accent { background:var(--accent); border-color:transparent; color:#fff; font-weight:600;
-    box-shadow:0 1px 3px rgba(0,103,192,0.4); }
-  button.accent:hover { background:var(--accent-hover); }
-  button.accent:active { background:var(--accent-press); }
-  button:disabled { opacity:.45; cursor:default; transform:none; }
-  button .ic { margin-right:7px; }
-
-  .status { margin-left:auto; display:inline-flex; align-items:center; gap:8px;
-    padding:6px 12px; border-radius:999px; background:var(--layer-solid);
-    border:1px solid var(--stroke); font-size:12.5px; color:var(--text-2); }
-  .status .led { width:8px;height:8px;border-radius:50%; background:#9aa0a6; }
-  .status.on { color:#0f7b34; border-color:rgba(16,123,52,0.25); background:rgba(16,123,52,0.08); }
-  .status.on .led { background:#16a34a; box-shadow:0 0 0 3px rgba(22,163,74,0.18); }
-
-  .logcard h3 { margin:0 0 10px; font-size:13px; font-weight:600; color:var(--text-2); }
-  #log { background:rgba(0,0,0,0.025); border:1px solid var(--stroke); border-radius:6px;
-    padding:12px 14px; height:320px; overflow:auto; font-size:12.5px; line-height:1.7;
-    font-family:"Cascadia Code","Consolas",ui-monospace,monospace; white-space:pre-wrap; }
-  @media (prefers-color-scheme: dark){ #log{ background:rgba(0,0,0,0.25);} button:hover{background:rgba(255,255,255,0.06);} }
-  #log div { animation: fade .2s ease; }
-  @keyframes fade { from{opacity:0; transform:translateY(2px);} to{opacity:1;} }
-  #log .muted { color:var(--text-2); }
-  #log::-webkit-scrollbar { width:10px; }
-  #log::-webkit-scrollbar-thumb { background:var(--stroke-strong); border-radius:6px; border:3px solid transparent; background-clip:padding-box; }
+  :root{--bg:#202020;--card:#2b2b2b;--card2:#333;--txt:#f3f3f3;--sub:#a0a0a0;--acc:#60cdff;--ok:#6ccb5f;--warn:#ffb454;--err:#ff6b6b;--line:#3a3a3a}
+  *{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+  body{margin:0;background:var(--bg);color:var(--txt);height:100vh;display:flex;flex-direction:column}
+  header{padding:18px 24px;border-bottom:1px solid var(--line)}
+  header h1{margin:0;font-size:18px;font-weight:600}
+  header p{margin:4px 0 0;color:var(--sub);font-size:13px}
+  main{flex:1;display:flex;gap:16px;padding:20px 24px;overflow:hidden}
+  .col{display:flex;flex-direction:column;gap:14px}
+  .left{flex:0 0 380px}.right{flex:1}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .step{display:flex;gap:10px;align-items:flex-start;margin-bottom:6px}
+  .num{flex:0 0 24px;height:24px;border-radius:50%;background:var(--card2);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+  .step h3{margin:0;font-size:14px}.step p{margin:2px 0 0;color:var(--sub);font-size:12px}
+  button{width:100%;padding:11px 14px;border:none;border-radius:8px;background:var(--card2);color:var(--txt);font-size:14px;font-weight:600;cursor:pointer;transition:.15s;margin-top:8px}
+  button:hover:not(:disabled){background:#3d3d3d}
+  button.primary{background:var(--acc);color:#003}
+  button.primary:hover:not(:disabled){background:#7ad6ff}
+  button.danger{background:#4a2626;color:var(--err)}
+  button.danger:hover:not(:disabled){background:#5e2e2e}
+  button:disabled{opacity:.4;cursor:not-allowed}
+  .ghost{background:transparent;border:1px solid var(--line)}
+  #log{flex:1;background:#181818;border:1px solid var(--line);border-radius:10px;padding:14px;font-family:'Cascadia Code',Consolas,monospace;font-size:12px;color:#cfe;overflow-y:auto;white-space:pre-wrap;line-height:1.5}
+  .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;background:var(--card2);color:var(--sub);margin:2px 4px 2px 0}
+  label.chk{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--sub);margin-top:10px;cursor:pointer}
+  .scanbox{margin-top:10px;font-size:12px;color:var(--sub);min-height:18px}
 </style></head>
 <body>
-  <div class="titlebar"><span class="dot"></span><h1>Wallpaper Orchestrator</h1></div>
-  <div class="wrap">
-
-    <div class="hero">
-      <div class="glyph">🪟</div>
-      <div>
-        <h2>Wallpaper Orchestrator</h2>
-        <p>Drop images into category folders — they auto-post to Pinterest with tags &amp; your link.</p>
+  <header>
+    <h1>🪟 Wallpaper Orchestrator</h1>
+    <p>Папки на рабочем столе → GitHub → CSV для Pinterest → удаление пака</p>
+  </header>
+  <main>
+    <div class="col left">
+      <div class="card">
+        <div class="step"><div class="num">1</div><div><h3>Папки готовы?</h3><p>Сложи картинки в Desktop\Pinterest\Ads, Magazine, Posters, Art, Other</p></div></div>
+        <button class="ghost" id="openFolder">📂 Открыть папку с картинками</button>
+        <button class="ghost" id="scan">🔍 Проверить (сканировать)</button>
+        <div class="scanbox" id="scanbox"></div>
+      </div>
+      <div class="card">
+        <div class="step"><div class="num">2</div><div><h3>Собрать пак</h3><p>Зальёт картинки в GitHub и создаст CSV-файл</p></div></div>
+        <button class="primary" id="build">🚀 Собрать пак (upload + CSV)</button>
+        <button id="openCsv" disabled>📄 Открыть CSV в папке</button>
+      </div>
+      <div class="card">
+        <div class="step"><div class="num">3</div><div><h3>После загрузки в Pinterest</h3><p>Загрузил CSV в Pinterest Bulk Create и пины создались? Тогда удали пак из GitHub.</p></div></div>
+        <label class="chk"><input type="checkbox" id="delLocal" /> также удалить картинки с рабочего стола</label>
+        <button class="danger" id="delete" disabled>🗑️ Удалить пак</button>
       </div>
     </div>
-
-    <div class="card glass">
-      <div class="meta">
-        <div><div class="k">Watching</div><div class="v" id="root">…</div></div>
-        <div><div class="k">Mode</div><div class="v" id="mode">…</div></div>
-        <div><div class="k">Categories</div><div class="v" id="cats">…</div></div>
-      </div>
+    <div class="col right">
+      <div class="card" style="padding:10px 14px"><strong style="font-size:13px">Журнал</strong></div>
+      <div id="log">Готов к работе. Начни с шага 1.\n</div>
     </div>
-
-    <div class="card">
-      <div class="bar">
-        <button class="accent" id="startBtn"><span class="ic">▶</span>Start watching</button>
-        <button id="stopBtn" disabled><span class="ic">⏹</span>Stop</button>
-        <button id="scanBtn"><span class="ic">🔍</span>Scan now</button>
-        <button id="openBtn"><span class="ic">📂</span>Open folder</button>
-        <button id="reportBtn"><span class="ic">📊</span>Report</button>
-        <span class="status" id="state"><span class="led"></span>Idle</span>
-      </div>
-    </div>
-
-    <div class="card logcard">
-      <h3>Activity log</h3>
-      <div id="log"></div>
-    </div>
-
-  </div>
+  </main>
   <script src="renderer.js"></script>
 </body></html>
