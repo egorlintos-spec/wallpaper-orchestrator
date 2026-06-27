@@ -1,9 +1,16 @@
 // config.js — central settings
 const path = require('path');
+const os = require('os');
+
+// Writable base dir (NEVER inside app.asar). Override with WO_HOME if needed.
+const HOME = process.env.WO_HOME || path.join(os.homedir(), 'WallpaperOrchestrator');
 
 module.exports = {
-  // Where downloaded images are saved
-  outputDir: path.join(__dirname, 'output'),
+  // Base folder for all app data on the user's machine
+  homeDir: HOME,
+
+  // Where downloaded images are saved (writable!)
+  outputDir: path.join(HOME, 'output'),
 
   // ChatGPT image generation page
   chatgptUrl: 'https://chatgpt.com/',
@@ -23,8 +30,8 @@ module.exports = {
   chromeExe: process.env.CHROME_EXE ||
     'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
   chromeProfileDir: process.env.CHROME_PROFILE_DIR ||
-    path.join(process.env.LOCALAPPDATA || __dirname, '.SaiChromeProfile'),
+    path.join(process.env.LOCALAPPDATA || HOME, '.SaiChromeProfile'),
 
-  // Playwright user-data dir for Pinterest (persists login)
-  chatgptUserDataDir: path.join(__dirname, '.chatgpt-profile'),
+  // Playwright user-data dir for Pinterest (writable!)
+  chatgptUserDataDir: path.join(HOME, '.chatgpt-profile'),
 };
