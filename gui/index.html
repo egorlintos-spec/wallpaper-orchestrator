@@ -5,57 +5,93 @@
   :root{--bg:#202020;--card:#2b2b2b;--card2:#333;--txt:#f3f3f3;--sub:#a0a0a0;--acc:#60cdff;--ok:#6ccb5f;--warn:#ffb454;--err:#ff6b6b;--line:#3a3a3a}
   *{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
   body{margin:0;background:var(--bg);color:var(--txt);height:100vh;display:flex;flex-direction:column}
-  header{padding:18px 24px;border-bottom:1px solid var(--line)}
-  header h1{margin:0;font-size:18px;font-weight:600}
-  header p{margin:4px 0 0;color:var(--sub);font-size:13px}
-  main{flex:1;display:flex;gap:16px;padding:20px 24px;overflow:hidden}
-  .col{display:flex;flex-direction:column;gap:14px}
-  .left{flex:0 0 380px}.right{flex:1}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
-  .step{display:flex;gap:10px;align-items:flex-start;margin-bottom:6px}
+  header{padding:16px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  header h1{margin:0;font-size:17px;font-weight:600}
+  header p{margin:3px 0 0;color:var(--sub);font-size:12px}
+  .gear{background:var(--card2);border:none;color:var(--txt);font-size:18px;width:40px;height:40px;border-radius:8px;cursor:pointer}
+  .gear:hover{background:#3d3d3d}
+  main{flex:1;display:flex;gap:16px;padding:18px 24px;overflow:hidden}
+  .col{display:flex;flex-direction:column;gap:13px}.left{flex:0 0 380px}.right{flex:1}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:15px}
+  .step{display:flex;gap:10px;align-items:flex-start;margin-bottom:4px}
   .num{flex:0 0 24px;height:24px;border-radius:50%;background:var(--card2);color:var(--acc);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
   .step h3{margin:0;font-size:14px}.step p{margin:2px 0 0;color:var(--sub);font-size:12px}
   button{width:100%;padding:11px 14px;border:none;border-radius:8px;background:var(--card2);color:var(--txt);font-size:14px;font-weight:600;cursor:pointer;transition:.15s;margin-top:8px}
   button:hover:not(:disabled){background:#3d3d3d}
-  button.primary{background:var(--acc);color:#003}
-  button.primary:hover:not(:disabled){background:#7ad6ff}
-  button.danger{background:#4a2626;color:var(--err)}
-  button.danger:hover:not(:disabled){background:#5e2e2e}
+  button.primary{background:var(--acc);color:#003}button.primary:hover:not(:disabled){background:#7ad6ff}
+  button.danger{background:#4a2626;color:var(--err)}button.danger:hover:not(:disabled){background:#5e2e2e}
   button:disabled{opacity:.4;cursor:not-allowed}
   .ghost{background:transparent;border:1px solid var(--line)}
-  #log{flex:1;background:#181818;border:1px solid var(--line);border-radius:10px;padding:14px;font-family:'Cascadia Code',Consolas,monospace;font-size:12px;color:#cfe;overflow-y:auto;white-space:pre-wrap;line-height:1.5}
+  #log{flex:1;background:#181818;border:1px solid var(--line);border-radius:10px;padding:14px;font-family:Consolas,monospace;font-size:12px;color:#cfe;overflow-y:auto;white-space:pre-wrap;line-height:1.5}
   .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;background:var(--card2);color:var(--sub);margin:2px 4px 2px 0}
   label.chk{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--sub);margin-top:10px;cursor:pointer}
   .scanbox{margin-top:10px;font-size:12px;color:var(--sub);min-height:18px}
+  .badge{font-size:11px;padding:3px 8px;border-radius:20px}
+  .badge.ok{background:#1d3320;color:var(--ok)}.badge.no{background:#3a2020;color:var(--err)}
+  /* modal */
+  .ov{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50}
+  .ov.show{display:flex}
+  .modal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;width:460px;max-width:92vw}
+  .modal h2{margin:0 0 4px;font-size:18px}.modal .hint{color:var(--sub);font-size:12px;margin-bottom:16px}
+  .field{margin-bottom:14px}.field label{display:block;font-size:12px;color:var(--sub);margin-bottom:5px}
+  .field input{width:100%;padding:9px 11px;border-radius:8px;border:1px solid var(--line);background:#1c1c1c;color:var(--txt);font-size:13px}
+  .field a{color:var(--acc);font-size:11px}
+  .modal .row{display:flex;gap:10px;margin-top:8px}
 </style></head>
 <body>
   <header>
-    <h1>🪟 Wallpaper Orchestrator</h1>
-    <p>Папки на рабочем столе → GitHub → CSV для Pinterest → удаление пака</p>
+    <div><h1>🪟 Wallpaper Orchestrator</h1><p>Папки → GitHub → CSV для Pinterest → удалить пак</p></div>
+    <button class="gear" id="openSettings" title="Настройки">⚙️</button>
   </header>
   <main>
     <div class="col left">
       <div class="card">
-        <div class="step"><div class="num">1</div><div><h3>Папки готовы?</h3><p>Сложи картинки в Desktop\Pinterest\Ads, Magazine, Posters, Art, Other</p></div></div>
+        <div class="step"><div class="num">1</div><div><h3>Папки готовы?</h3><p>Картинки в Desktop\Pinterest\Ads, Magazine, Posters, Art, Other</p></div></div>
         <button class="ghost" id="openFolder">📂 Открыть папку с картинками</button>
         <button class="ghost" id="scan">🔍 Проверить (сканировать)</button>
         <div class="scanbox" id="scanbox"></div>
       </div>
       <div class="card">
-        <div class="step"><div class="num">2</div><div><h3>Собрать пак</h3><p>Зальёт картинки в GitHub и создаст CSV-файл</p></div></div>
+        <div class="step"><div class="num">2</div><div><h3>Собрать пак</h3><p>Зальёт картинки в GitHub и создаст CSV</p></div></div>
+        <div style="margin:6px 0"><span id="tokBadge" class="badge no">токен не задан</span></div>
         <button class="primary" id="build">🚀 Собрать пак (upload + CSV)</button>
         <button id="openCsv" disabled>📄 Открыть CSV в папке</button>
       </div>
       <div class="card">
-        <div class="step"><div class="num">3</div><div><h3>После загрузки в Pinterest</h3><p>Загрузил CSV в Pinterest Bulk Create и пины создались? Тогда удали пак из GitHub.</p></div></div>
+        <div class="step"><div class="num">3</div><div><h3>После загрузки в Pinterest</h3><p>Загрузил CSV в Pinterest? Удали пак из GitHub.</p></div></div>
         <label class="chk"><input type="checkbox" id="delLocal" /> также удалить картинки с рабочего стола</label>
         <button class="danger" id="delete" disabled>🗑️ Удалить пак</button>
       </div>
     </div>
     <div class="col right">
       <div class="card" style="padding:10px 14px"><strong style="font-size:13px">Журнал</strong></div>
-      <div id="log">Готов к работе. Начни с шага 1.\n</div>
+      <div id="log">Готов к работе. Сначала задай токен в ⚙️ Настройках.\n</div>
     </div>
   </main>
+
+  <!-- Settings modal -->
+  <div class="ov" id="settingsOv">
+    <div class="modal">
+      <h2>⚙️ Настройки</h2>
+      <div class="hint">Токен хранится локально на твоём ПК и не попадает в репозиторий.</div>
+      <div class="field">
+        <label>GitHub Token (Contents: Read &amp; write) — <a href="https://github.com/settings/tokens/new" target="_blank">создать токен</a></label>
+        <input type="password" id="sToken" placeholder="github_pat_… или ghp_… (оставь пустым — не менять)" />
+      </div>
+      <div class="row">
+        <div class="field" style="flex:1"><label>Owner</label><input id="sOwner" /></div>
+        <div class="field" style="flex:1"><label>Repo</label><input id="sRepo" /></div>
+      </div>
+      <div class="row">
+        <div class="field" style="flex:1"><label>Branch</label><input id="sBranch" /></div>
+        <div class="field" style="flex:2"><label>Boosty / ссылка</label><input id="sBoosty" /></div>
+      </div>
+      <div class="field"><label>Папка с картинками (Watch root)</label><input id="sWatch" /></div>
+      <div class="row">
+        <button class="ghost" id="cancelSettings">Отмена</button>
+        <button class="primary" id="saveSettings">Сохранить</button>
+      </div>
+    </div>
+  </div>
   <script src="renderer.js"></script>
 </body></html>
