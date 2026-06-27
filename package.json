@@ -1,6 +1,6 @@
 {
   "name": "wallpaper-orchestrator",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Desktop app that auto-generates minimalist 'liquid glass' iPhone wallpapers via the Reve AI API and prepares them for Pinterest — prompt → image → pin.",
   "main": "main.js",
   "author": {
