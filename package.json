@@ -73,15 +73,15 @@
           ]
         }
       ],
-      "icon": "build/icon.ico",
-      "artifactName": "Wallpaper-Orchestrator-${version}-Windows-${arch}.${ext}"
+      "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createStartMenuShortcut": true,
+      "artifactName": "Wallpaper-Orchestrator-${version}-Windows-Setup-${arch}.${ext}"
     },
     "mac": {
       "target": [
@@ -113,6 +113,9 @@
         "owner": "egorlintos-spec",
         "repo": "wallpaper-orchestrator"
       }
-    ]
+    ],
+    "portable": {
+      "artifactName": "Wallpaper-Orchestrator-${version}-Windows-Portable-${arch}.${ext}"
+    }
   }
 }
