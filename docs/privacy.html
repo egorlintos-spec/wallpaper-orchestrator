@@ -1,57 +1,77 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Privacy Policy — Wallpaper Orchestrator</title>
+<html lang="en"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — Fallen the Owl</title>
 <style>
-  body{font-family:-apple-system,"Segoe UI",system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#1a1a1a;line-height:1.65;}
-  h1{font-size:26px;} h2{font-size:18px;margin-top:28px;} code{background:#f3f3f3;padding:2px 5px;border-radius:4px;}
-  .muted{color:#666;font-size:13px;} a{color:#0067c0;}
-</style></head><body>
-<h1>Privacy Policy</h1>
-<p class="muted">Application: <b>Wallpaper personal content</b> (App ID 1585101) · Company: <b>FallenOWL</b> · Last updated: 2026-06-27</p>
+  :root{--bg:#0d0f14;--card:#161a22;--line:#222836;--txt:#eef2f8;--sub:#9aa6bb;--acc:#7ad6ff}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
+  body{background:var(--bg);color:var(--txt);line-height:1.7}
+  a{color:var(--acc);text-decoration:none}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+  header{padding:22px 0;border-bottom:1px solid var(--line)}
+  header .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+  nav a{margin-left:22px;color:var(--sub);font-size:14px}
+  main{padding:56px 0}
+  h1{font-size:34px;margin-bottom:8px}
+  .updated{color:var(--sub);font-size:14px;margin-bottom:36px}
+  h2{font-size:20px;margin:32px 0 10px}
+  p,li{color:var(--sub);font-size:15px}
+  ul{margin:8px 0 8px 22px}
+  footer{padding:36px 0;border-top:1px solid var(--line);color:var(--sub);font-size:14px;text-align:center}
+</style></head>
+<body>
+<header><div class="wrap">
+  <div class="logo"><span>🦉</span> Fallen the Owl</div>
+  <nav><a href="/">Home</a><a href="/privacy.html">Privacy</a></nav>
+</div></header>
+<main><div class="wrap">
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: June 27, 2025</div>
 
-<p><b>Wallpaper Orchestrator</b> is a personal desktop application that publishes the
-owner's own original wallpaper and design images to the owner's own Pinterest
-business account, and retrieves analytics (impressions, saves, clicks) for those pins.
-It is a single-user personal tool and is <b>not</b> offered to or used by third-party users.</p>
+  <p>This Privacy Policy describes how Wallpaper Orchestrator ("the App", "we", "us"), operated by Fallen the Owl, handles information when you use the application available at fallentheowl.space and its related tools.</p>
 
-<h2>1. Data we access</h2>
-<p>Through the Pinterest API, the application accesses only the account of the
-authenticated owner, specifically:</p>
-<ul>
-  <li>Boards and pins owned by the account (to create new pins).</li>
-  <li>Pin and account analytics (impressions, saves, link clicks) for reporting.</li>
-</ul>
+  <h2>1. Information We Collect</h2>
+  <p>Wallpaper Orchestrator is a desktop application that runs on your own computer. We do not operate servers that collect or store your personal data. Specifically:</p>
+  <ul>
+    <li><strong>Image files</strong> you select remain on your device and on hosting destinations you explicitly configure.</li>
+    <li><strong>Access tokens</strong> (for example, GitHub or Pinterest) that you provide are stored locally on your machine and are used only to perform the actions you request.</li>
+    <li>We do not collect analytics, tracking data, or personal identifiers on our own infrastructure.</li>
+  </ul>
 
-<h2>2. Data we store</h2>
-<p>The application runs locally on the owner's computer. It stores only:</p>
-<ul>
-  <li>API access/refresh tokens, kept locally in a <code>.env</code> file on the owner's machine.</li>
-  <li>A local ledger of which images have been posted (<code>posted.json</code>).</li>
-  <li>Optional locally generated analytics reports (CSV/HTML).</li>
-</ul>
-<p>No data is sent to any third-party server controlled by us. We do not operate
-any backend; all processing happens on the owner's device.</p>
+  <h2>2. How We Use Information</h2>
+  <p>Any credentials or tokens you supply are used solely to:</p>
+  <ul>
+    <li>Upload images to a hosting location you choose;</li>
+    <li>Create or manage pins and boards on Pinterest on your behalf;</li>
+    <li>Generate publishing files (such as CSV exports) on your device.</li>
+  </ul>
 
-<h2>3. Data we do NOT collect</h2>
-<p>We do not collect, sell, or share any personal data of other Pinterest users.
-The application only interacts with the owner's own account.</p>
+  <h2>3. Third-Party Services</h2>
+  <p>The App can interact with third-party platforms that you choose to connect, including GitHub and Pinterest. Your use of those services is governed by their respective privacy policies and terms. We recommend reviewing:</p>
+  <ul>
+    <li>Pinterest Privacy Policy — <a href="https://policy.pinterest.com/en/privacy-policy" target="_blank" rel="noopener">policy.pinterest.com</a></li>
+    <li>GitHub Privacy Statement — <a href="https://docs.github.com/en/site-policy/privacy-policies" target="_blank" rel="noopener">docs.github.com</a></li>
+  </ul>
 
-<h2>4. Data sharing</h2>
-<p>No data is shared with third parties. Communication occurs solely between the
-owner's device and the official Pinterest API.</p>
+  <h2>4. Data Sharing</h2>
+  <p>We do not sell, rent, or share your personal information with third parties. Data is transmitted only to the services you explicitly connect, and only to carry out actions you initiate.</p>
 
-<h2>5. Data retention &amp; deletion</h2>
-<p>All data is local. The owner may delete tokens, the ledger, and reports at any
-time by removing the corresponding files, or by revoking the app's access in their
-Pinterest account settings.</p>
+  <h2>5. Data Retention</h2>
+  <p>Because the App runs locally, you control all stored data. Tokens and files persist only on your device until you remove them. Images uploaded to a hosting destination can be deleted by you at any time through the App.</p>
 
-<h2>6. Security</h2>
-<p>Tokens are stored locally and never transmitted except to Pinterest over HTTPS.</p>
+  <h2>6. Security</h2>
+  <p>Credentials are stored locally on your device. You are responsible for keeping your machine and access tokens secure. We recommend using tokens with the minimum necessary permissions.</p>
 
-<h2>7. Contact</h2>
-<p>For questions about this policy, contact the developer via the project repository:
-<a href="https://github.com/egorlintos-spec/wallpaper-orchestrator">github.com/egorlintos-spec/wallpaper-orchestrator</a>.</p>
+  <h2>7. Children's Privacy</h2>
+  <p>The App is not directed to individuals under the age of 13, and we do not knowingly collect information from children.</p>
 
-<p class="muted">This application uses the Pinterest API but is not endorsed or certified by Pinterest.</p>
+  <h2>8. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated revision date.</p>
+
+  <h2>9. Contact</h2>
+  <p>If you have questions about this Privacy Policy, contact us at <a href="mailto:lotr1k@outlook.com">lotr1k@outlook.com</a>.</p>
+</div></main>
+<footer><div class="wrap">© 2025 Fallen the Owl · <a href="/">Home</a></div></footer>
 </body></html>
