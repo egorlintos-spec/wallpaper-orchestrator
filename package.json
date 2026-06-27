@@ -1,6 +1,6 @@
 {
   "name": "wallpaper-orchestrator",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Desktop app that organizes local image collections into category folders, hosts them on GitHub, and builds a Pinterest bulk-upload CSV with tags and links.",
   "main": "main.js",
   "author": {
