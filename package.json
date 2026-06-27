@@ -1,6 +1,6 @@
 {
   "name": "wallpaper-orchestrator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Desktop app that auto-generates minimalist 'liquid glass' iPhone wallpapers via ChatGPT and prepares them for Pinterest — prompt → image → download → pin.",
   "main": "main.js",
   "author": {
