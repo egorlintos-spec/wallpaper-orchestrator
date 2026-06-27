@@ -1,6 +1,6 @@
 {
   "name": "wallpaper-orchestrator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Desktop app that auto-generates minimalist 'liquid glass' iPhone wallpapers via ChatGPT and prepares them for Pinterest — prompt → image → download → pin.",
   "main": "main.js",
   "author": {
@@ -73,7 +73,8 @@
           ]
         }
       ],
-      "icon": "build/icon.ico"
+      "icon": "build/icon.ico",
+      "artifactName": "Wallpaper-Orchestrator-${version}-Windows-${arch}.${ext}"
     },
     "nsis": {
       "oneClick": false,
@@ -93,7 +94,8 @@
         }
       ],
       "category": "public.app-category.graphics-design",
-      "icon": "build/icon.icns"
+      "icon": "build/icon.icns",
+      "artifactName": "Wallpaper-Orchestrator-${version}-macOS-${arch}.${ext}"
     },
     "linux": {
       "target": [
@@ -102,7 +104,8 @@
       ],
       "category": "Graphics",
       "icon": "build/icon.png",
-      "maintainer": "FallenOWL"
+      "maintainer": "FallenOWL",
+      "artifactName": "Wallpaper-Orchestrator-${version}-Linux-${arch}.${ext}"
     },
     "publish": [
       {
