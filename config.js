@@ -1,43 +1,34 @@
 // config.js — central settings
 const path = require('path');
 const os = require('os');
-
-const HOME = process.env.WO_HOME || path.join(os.homedir(), 'WallpaperOrchestrator');
-
-// Desktop folder where you collect images (one subfolder per category).
-const DESKTOP_ROOT = process.env.WO_DESKTOP_ROOT ||
-  path.join(os.homedir(), 'Desktop', 'Pinterest');
+require('dotenv').config();
 
 module.exports = {
-  homeDir: HOME,
-
-  // --- Local source ---
-  desktopRoot: DESKTOP_ROOT,
-  categories: ['Ads', 'Magazine', 'Posters', 'Art', 'Other'],
-  imageExts: ['.png', '.jpg', '.jpeg', '.webp'],
-
-  // --- GitHub hosting (raw image URLs for Pinterest CSV) ---
+  // GitHub repo used as a TEMPORARY public host for images (raw URLs for Pinterest).
   github: {
-    owner: process.env.WO_GH_OWNER || 'egorlintos-spec',
-    repo:  process.env.WO_GH_REPO  || 'wallpaper-orchestrator',
-    branch: process.env.WO_GH_BRANCH || 'main',
-    token: process.env.GITHUB_TOKEN || '',   // PAT with 'repo' scope (in .env)
-    pinsDir: 'pins',
+    owner:  process.env.GITHUB_OWNER  || 'egorlintos-spec',
+    repo:   process.env.GITHUB_REPO   || 'wallpaper-orchestrator',
+    branch: process.env.GITHUB_BRANCH || 'main',
+    token:  process.env.GITHUB_TOKEN  || '',   // PAT with "repo" scope
   },
 
-  // --- Pin metadata ---
-  pinterestLink: process.env.WO_LINK || 'https://boosty.to/fallenowl',
-  maxTags: 18,
+  // Root folder on the user's machine that contains the category subfolders.
+  // Relative paths are resolved against the home directory.
+  watchRoot: process.env.WATCH_ROOT || path.join('Desktop', 'Pinterest'),
+  categories: ['Ads', 'Magazine', 'Posters', 'Art', 'Other'],
+
+  // Monetization link added to every pin.
+  pinterestLink: process.env.BOOSTY_LINK || 'https://boosty.to/fallenowl',
+
+  // Tags appended per category (folder = board name).
   categoryTags: {
-    Ads:      ['#ad', '#branding', '#productdesign', '#advertising'],
-    Magazine: ['#editorial', '#magazine', '#fashion', '#cover'],
-    Posters:  ['#poster', '#posterdesign', '#vintageposter', '#travelposter'],
-    Art:      ['#art', '#digitalart', '#aiart', '#fineart'],
-    Other:    ['#design', '#aesthetic', '#wallpaper'],
+    Ads:      ['#ad', '#advertising', '#branding', '#productdesign', '#commercial'],
+    Magazine: ['#magazine', '#editorial', '#fashion', '#cover', '#photography'],
+    Posters:  ['#poster', '#posterdesign', '#graphicdesign', '#typography', '#print'],
+    Art:      ['#art', '#fineart', '#illustration', '#contemporaryart', '#artwork'],
+    Other:    ['#design', '#aesthetic', '#inspiration', '#minimal', '#creative'],
   },
-  popularTags: ['#pinterest', '#inspiration', '#aesthetic', '#design',
-                '#art', '#creative', '#moodboard', '#wallpaper', '#aiart', '#trending'],
-
-  // CSV output (saved into the desktop root)
-  csvName: 'pinterest_upload.csv',
+  // Popular general tags appended to every pin (for reach).
+  popularTags: ['#pinterest', '#aesthetic', '#wallpaper', '#design', '#inspo', '#moodboard', '#visual', '#trending'],
+  maxTags: 18,
 };
